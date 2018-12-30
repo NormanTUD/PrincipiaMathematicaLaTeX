@@ -1,0 +1,329 @@
+\documentclass{scrartcl}
+
+\usepackage[english]{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{pifont}
+\usepackage{fourier}
+\usepackage{tabularx}
+\usepackage{perpage}
+\MakePerPage{footnote}
+\usepackage[symbol]{footmisc}
+
+\makeatletter
+\newcommand*{\leftalign}[1]{%
+  \ifmeasuring@
+      #1%
+        \else
+	    \begingroup
+	          \advance\column@ by\@ne
+		        \hbox to \expandafter\maxcol@width\column@{$#1\m@th$\hfill}%
+			    \endgroup
+			      \fi
+}
+
+\DeclareRobustCommand*{\pmstar}{%
+  \text{%
+      \resizebox{!}{.75\height}{\ding{107}}%
+        }%
+}
+\newcommand*{\pmcdot}{%
+  \mathpalette{\pm@cdot}{}%
+}
+\newcommand*{\pm@cdot}[2]{%
+  \sbox0{$\m@th#1\cdot$}%
+    \sbox2{$#11$}%
+      \raise.6\dimexpr\ht2-\ht0\relax\copy0 %
+}
+\newcommand*{\pmand}{\mathbin{\pmdot{.}}}
+\newcommand*{\pmgrave}{\text{\bfseries`}}
+\newcommand*{\pmimplies}{\boldsymbol{\supset}}
+\newcommand*{\pmcup}{%
+  \mathbin{%
+      \mathchoice
+            {\scriptstyle\boldsymbol{\cup}}%
+	          {\scriptstyle\boldsymbol{\cup}}%
+		        {\scriptscriptstyle\boldsymbol{\cup}}%
+			      {\boldsymbol{\cup}}%
+			        }%
+}
+\newcommand*{\pmcap}{%
+  \mathbin{%
+      \mathchoice
+            {\scriptstyle\boldsymbol{\cap}}%
+	          {\scriptstyle\boldsymbol{\cap}}%
+		        {\scriptscriptstyle\boldsymbol{\cap}}%
+			      {\boldsymbol{\cap}}%
+			        }%
+}
+
+\newcommand*{\pmvdash}{\mathord{\@pmvdash\,}\mathopen{}}
+\newcommand*{\@pmvdash}{%
+  \mathpalette{\pm@vdash}{}%
+}
+\newcommand*{\pm@vdash}[2]{%
+  \sbox0{$\m@th#11\Lambda\mid$}%
+    \sbox0{\vrule height\ht0 width.5pt}%
+      \copy0
+        \sbox2{\vbox to 0pt{\vss\hbox to.5\ht0{}\hrule height.5pt\vss}}%
+	  \raise.5\ht0\copy2 %
+}
+
+\newcommand*{\pmneq}{%
+  \mathrel{\mathpalette{\pm@neq}{}}%
+}
+\newcommand*{\pm@neq}[2]{%
+  \sbox0{$\m@th#1=$}%
+    \hbox to \wd0{%
+        \hss$\m@th#1\mid$\hss
+	  }%
+	    \kern-\wd0 %
+	      \copy0 %
+}
+
+\newcommand*{\pmexists}{%
+  \mathord{\mathpalette{\pm@exists}{}}%
+}
+\newcommand*{\pm@exists}[2]{%
+  \sbox0{$#1y$}%
+    \raisebox{\dimexpr-\dp0+\depth\relax}{%
+        \rotatebox{180}{$\m@th#1\mathrm{E}$}%
+	  }%
+}
+
+\catcode`\:=\active
+\catcode`\.=\active
+\newcommand*{\pmdot}[1]{%
+  \mathinner{%
+      \mathcode`\.="8000 %
+          \mathcode`\:="8000 %
+	      \let.=\@pmdot
+	          \let:=\@pmcolon
+		      #1%
+		        }%
+}
+\@makeother\:
+\@makeother\.
+\newcommand*{\@pmcolon}{%
+  \mathpalette\pm@colon{}%
+}
+\newcommand*{\@pmdot}{%
+  \mathpalette\pm@dot{}%
+}
+\newcommand*{\pm@dot}[2]{%
+  \sbox0{$\m@th#1\mathchar`\.$}%
+    \hbox to 1.15\wd0{\hfill\vrule width1.35\ht0 height1.35\ht0 \hfill}%
+}
+\newcommand*{\pm@colon}[2]{%
+  \sbox0{\pm@dot{#1}{}}%
+    \sbox2{$\m@th#1\pm@vdash{#1}{}$}%
+      \rlap{%
+          \raisebox{.5\dimexpr\ht2-\ht0\relax}{\copy0}%
+	    }%
+	      \copy0 %
+}
+\newcommand{\pmor}[0]{\pmdot{\vee}}
+\newcommand{\pmnum}[2]{$\pmstar #1\pmdot{\cdot} #2\pmand$}
+\newcommand{\pmstart}[0]{\vdash\pmdot{:}}
+\makeatother
+
+\usepackage{lettrine}
+
+\begin{document}
+
+{\hfill\Huge PRINCIPIA MATHEMATICA\hfill}
+
+\vspace{4em}
+
+{\hfill BY\hfill}
+
+\vspace{4em}
+
+{\hfill\LARGE Alfred North Whitehead\hfill}
+
+\vspace{4em}
+
+{\hfill AND \hfill}
+
+\vspace{4em}
+
+{\hfill\LARGE Bertrand Russell, F.\,R.\,S.\hfill}
+
+\vspace{20em}
+
+{\hfill\Large VOLUME I\hfill}
+
+\vspace{4em}
+
+{\hfill\large SECOND EDITION\hfill}
+
+\vspace{4em}
+
+{\hfill\large CAMBRIDGE\hfill}
+
+{\hfill\large AT THE UNIVERSITY PRESS\hfill}
+
+{\hfill\large 1963\hfill}
+
+\clearpage
+
+\section{Alphabetical List of Propositions referred to by Names}
+
+\begin{tabularx}{10em}{l l l}
+	Name & Number & \\
+	Abs & $\pmstar 2\pmdot{\cdot} 01\pmand$ & $\vdash\pmdot{:} p \pmimplies \thicksim p\pmand\pmimplies\pmand\thicksim p$ \\
+	Add & $\pmstar 1\pmdot{\cdot} 3\pmand$ & $\vdash\pmdot{:} q \pmand\pmimplies\pmand p\pmor q$ \\
+	Ass & $\pmstar 3\pmdot{\cdot} 35\pmand$ & $\vdash\pmdot{:} p\pmand p\pmimplies q\pmand\pmimplies\pmand q$ \\
+	Assoc & $\pmstar 1\pmdot{\cdot} 5\pmand$ & $\vdash\pmdot{:} p\pmor\left(q\pmor r\right)\pmand\pmimplies\pmand q\pmor\left(p\pmor r\right)$ \\
+	Comm & $\pmstar 1\pmdot{\cdot} 04\pmand$ & $\vdash\pmdot{:} \pmand p\pmand\pmimplies\pmand q\pmimplies r\pmdot{:}\pmimplies\pmdot{:}q\pmand\pmimplies\pmand p\pmimplies r$ \\
+	Comp & $\pmstar 3\pmdot{\cdot} 43\pmand$ & $\vdash\pmdot{:}\pmand p\pmimplies q\pmand p\pmimplies r\pmand\pmimplies\pmdot{:}p\pmand\pmimplies\pmand q\pmand r$\\
+	Exp & \pmnum{3}{3} & $\pmstart\pmand p\pmand q\pmand\pmimplies\pmand r\pmdot{:}\pmimplies\pmdot{:} p\pmand\pmimplies\pmand q\pmimplies r$ \\
+	Fact & \pmnum{3}{45} & $\pmstart\pmand p\pmimplies q\pmand\pmimplies\pmdot{:} p\pmand r \pmand \pmimplies \pmand q \pmand r$ \\
+	Id & \pmnum{2}{08} & $\pmstart\pmand p\pmimplies p$ \\
+	Imp & \pmnum{3}{31} & $\pmstart \pmand p \pmand \pmimplies \pmand q \pmimplies r \pmdot{:}\pmimplies\pmdot{:} p\pmand q\pmand\pmimplies\pmand r$ \\
+	Perm & \pmnum{1}{4} & $\pmstart p\pmor q \pmand \pmimplies \pmand p \pmor q$ \\
+	Simp & \pmnum{2}{02} & $\pmstart q\pmand \pmimplies \pmand p \pmimplies q$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{3}{26} & $\pmstart p\pmand q\pmand\pmimplies\pmand p$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{3}{27} & $\pmstart p\pmand q\pmand\pmimplies\pmand q$ \\
+	Sum & \pmnum{1}{6} & $\pmstart\pmand q\pmimplies r\pmand\pmimplies\pmdot{:}p\pmor q\pmand\pmimplies\pmand p\pmor r$ \\
+	Syll & \pmnum{2}{05} & $\pmstart\pmand q\pmimplies r\pmand\pmimplies\pmdot{:}p\pmimplies q\pmand\pmimplies\pmand p\pmimplies r$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{2}{06} & $\pmstart \pmand p\pmimplies q\pmand \pmimplies\pmdot{:}q \pmimplies r\pmand \pmimplies\pmand p\pmimplies r$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{3}{33} & $\pmstart p\pmimplies q\pmand q\pmimplies r\pmand\pmimplies\pmand p\pmimplies r$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{3}{34} & $\pmstart q\pmimplies r\pmand p\pmimplies q\pmand\pmimplies\pmand p\pmimplies r$ \\
+	Taut & \pmnum{1}{2} & $\pmstart p\pmor p\pmand\pmimplies\pmand p$ \\
+	Transp & \pmnum{2}{03} & $\pmstart p\pmimplies \thicksim q\pmand\pmimplies\pmand q\pmimplies \thicksim p$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{2}{15} & $\pmstart \thicksim p\pmimplies q\pmand\pmimplies\pmand\thicksim q\pmimplies p$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{2}{16} & $\pmstart p\pmimplies q\pmand\pmimplies\pmand\thicksim q\pmimplies \thicksim p$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{2}{17} & $\pmstart \thicksim q\pmimplies\thicksim p\pmand\pmimplies\pmand p\pmimplies q$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{3}{37} & $\pmstart \pmand p\pmand q\pmand\pmimplies\pmand r\pmdot{:}\pmimplies\pmdot{:} p\pmand\thicksim r\pmand\pmimplies\pmand\thicksim q$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{4}{1} & $\pmstart p\pmimplies q\pmand\equiv\pmand \thicksim q\pmimplies\thicksim p$ \\
+	\,\,\,\,\,\,\glqq & \pmnum{4}{11} & $\pmstart p\equiv q\pmand\equiv\pmand\thicksim p\equiv\thicksim q$ \\
+\end{tabularx}
+
+\section{Preface}
+
+\lettrine[lines=2]{T}HE mathematical treatment of the principles of mathematics, which is the subject of the present work, has arisen
+from the conjunction of two different studies, both in the main very modern. On the one hand we have the work of analyst and geometers
+in the way of formulating and systematising their axioms and the work of Cantor and others on such matters as the theory of aggregates.
+On the other hand we have a symbolic logic, which, after a necessary period of growth, has now, thanks to Peano and his followers,
+acquired the technical adaptability and the logical comprehensiveness that are essential to a mathematical instrument for dealing with
+what have hitherto been the beginnings of mathematics. From the combination of these two studies two results emerge, namely (1) that were
+formerly taken tacitly or explicitly, as axioms, are either unnecessary or demonstrable; (2) that the same methods by which supposed
+axioms are demonstrated will give valuable results in the regions, such as infinite number, which had formerly been regarded as inaccessible
+to human knowledge. Hence the scope of mathematics is enlarged both by the addition of new subjects and by a backward extension into provinces
+hitherto abandoned to philosophy.
+
+The present work was originally intended by us to be comprised in a second volume of \textit{The Principles of Mathematics}. With that object in
+view, the writing of it was begin in 1900. But as we advanced, it became increasingly evident that the subject is a very much larger one than we had
+supposed; moreover on many fundamental questions which had been left obscure and doubtful in the former work, we have now arrived at what we
+believe to be satisfactory solutions. It therefore became necessary to make our book independent of \textit{The Principles of Mathematics}. We have,
+however, avoided both controversy and general philosophy, and made our statements in dogmatic form. The justification for this is that the chief reason
+in favour of any theory on the principles of mathematics must always be inductive, \textit{i.\,e.} it must lie in the fact that the theory in question
+enables us to deduce ordinary mathematics. In mathematics, the greatest degree of self-evidence is usually not to be found quite at the beginning, but
+at some later point; hence the early deductions, until they reach this point, give reasons rather for believing the premisses because true consequences
+follow from them, than for believing the consequences because they follow from the premisses.
+
+In construction a deductive system such as that contained in the present work, there are two opposite tasks which have to be concurrently performed. On
+the one hand, we have to analyse existing mathematics, with a view to discovering what premisses are employed, whether these premisses are mutually
+consistent, and whether they are capable of reduction to more fundamental premisses. On the other hand, when we have decided upon our premisses,
+we have to build up again as much as may seem necessary of the data previously analysed, and as many other consequences of our premisses as are of sufficient
+general interest to deserve statement. The preliminary labour of analysis does not appear in the final presentation, which merely sets forth the outcome
+of analysis in certain undefined ideas and undemonstrated propositions. It is not claimed that the analysis could not have been carried farther: we have
+no reason to suppose that it is impossible to find simpler ideas and axioms by means of which those with which we start could be defined and demonstrated. All
+that is affirmed is that the ideas and axioms with which we start are sufficient, not that they are necessary.
+
+In making deductions from our premisses, we have considered it essential to carry them up to the point where we have proved as much as is true in whatever would
+ordinarily be taken for granted. But we have not thought it desirable to limit ourselves too strictly to this task. It is customary to consider only particular
+cases, even when, with our apparatus, it is just as easy to deal with the general case. For example, cardinal arithmetic is usually conceived in connection with
+\textit{finite} numbers, but its general laws hold equally for infinite numbers, and are most easily proved without any mention of the distinction between finite
+and infinite. Again, many of the properties commonly associated with series hold of arrangements which are not strictly serial, but have only some of the
+distinguishing properties of serial arrangements. In such cases, it is a defect in logical style to prove for a particular class of arrangements what might just
+as well have been proved more generally. An analogous process of generalization is involved, to a greater or less degree, in all our work. We have sought always
+the most general reasonably simple hypothesis from which any given conclusion could be reached. For this reason, especially in the later parts of the book, the
+importance or a proposition usually lies in its hypothesis. The conclusion will often be something which, in a certain class of cases, is familiar, but the hypothesis
+will, whenever possible, be wide enough to admit many cases besides those in which the conclusion is familiar.
+
+We have found it necessary to give very full proofs, because otherwise it is scarcely possible to see what hypotheses are really required, or whether our results
+follow from our explicit premisses. (It must be remembered that we are not affirming merely such and such propositions are true, but also that the axioms stated
+by us are sufficient to prove them.) At the same time, though full proofs are necessary for the avoidance of errors, and for convincing those who may feel doubtful
+as to our correctness, yet the proofs of propositions may usually be omitted by a reader who is not specially interested in that part of the subject concerned,
+and who feels no doubt of our substantial accuracy on the matter in hand. The reader who is specially interested in some particular portion of the book will probably
+find it sufficient, as regards earlier portions, to read the summaries of previous parts, sections, and numbers, since these give explanations of the ideas
+involved and statements of the principal propositions proved. The proofs in Part I, Section A, however, are necessary since in the course of them the manner
+of stating proofs is explained. The proofs of the earliest propositions are given without the omission of any step, but as the work proceeds the proofs are gradually
+compressed, retaining however sufficient detail to enable the reader by the help of the references to reconstruct proofs in which no step is omitted.
+
+The order adopted is to some extent optional. For example, we have treated cardinal arithmetic and relation-arithmetic before the series, but we might have treated
+the series first. To a great extent, however, the order is determined by logical necessities.
+
+A very large part of the labour involved in writing the present work has been expended on the contradictions and paradoxes which have infected logic and the theory
+of aggregates. We have examined a great number of hypotheses for dealing with these contradictions; many such hypotheses have been advanced by others, and about as
+many have been invented by ourselves. Sometimes it has cost us several months' work to convince ourselves that a hypothesis was untenable. In the course of such a
+prolonged study, we have been led, as was to be expected, to modify our views from time to time; but it gradually became evident to us that some form of the doctrine
+of types must be adopted if the contradictions were to be avoided. The particular form of the doctrine of types advocated in the present work is not logically
+indispensable, and there are various other forms equally compatible with the truth of our deductions. We have particularized, both because the form of the
+doctrine which we advocate appears to us the most probable, and because it was necessary to give at least one perfectly definite theory which avoids the contradictions.
+But hardly anything in our book would be changed by the adoption of a different form of the doctrine of types. In fact, we may go farther, and say that, supposing some
+other way of avoiding the contradictions to exist, not very much of our book, except what explicitly deals with types, is dependent upon the adoption of the doctrine of
+types in any form, so soon as it has been shown (as we claim that we have shown) that it is \textit{possible} to construct a mathematical logic which does not lead to
+contradictions. It should be observed that the whole effect of the doctrine of types is negative: it forbids certain inferences which would otherwise be invalid. Hence
+we may reasonably expected that the inferences which the doctrine of types permits would remain valid even if the doctrine should be found to be invalid.
+
+Our logical system is wholly contained in the numbered propositions, which are independent of the Introductions and the Summaries. The Introduction and the Summaries are
+wholly explanatory, and form no part of the chain of deductions. The explanation of the hierarchy of types in the Introduction differs slightly from that given in
+$\pmstar12$ of the body of the work. The latter explanation is stricter and is that which is assumed throughout the rest of the book.
+
+The symbolic form of the work has been forced upon us by necessity: without its help we should have been unable to perform the requisite reasoning. It has been developed
+as the result of actual practice and is not an excrescence introduced for the mere purpose of exposition. The general method which guides or handling of logical symbols
+is due to Peano. His great merit consists not so much in his definite logical discoveries nor in the details of his notations (excellent as both are), as in the fact that
+he first showed how symbolic logic was to be freed from its undue obsession with the forms of ordinary algebra, and thereby made it a suitable instrument for research. Guided
+by our study of his methods, we have used great freedom in construction, or reconstructing, a symbolism which shall be adequate to deal with all parts of the subject. No
+symbol has been introduced except the ground of its practical utility for the immediate purposes of our reasoning.
+
+A certain number of forward references will be found in the notes and explanations. Although we have have taken every reasonable precaution to secure the accuracy of these
+forward references, we cannot of course guarantee their accuracy with the same confidence as is possible in the case of backward references.
+
+Detailed acknowledgements of obligations to previous writers have not very often been possible, as we had to transform whatever we have borrowed, in order to adapt it to our
+system and our notation. Our chief obligation will be obvious to every reader who is familiar with the literature of the subject. In the matter of notation, we have as far as
+possible followed Peano, supplementing his notation, when necessary, by that of Frege or by that of Schr\"oder. A great deal of the symbolism however, has had to be new, not 
+so much through the dissatisfaction with the symbolism of others, as through the fact that we deal with ideas not previously symbolised. In all questions of logical analysis,
+our chief debt is to Frege. Where we differ from him, it is largely because of the contradictions showed that he, in common with all other logicians ancient and modern times,
+had allowed some error to creep into his premisses; but apart from the contradictions, it would have been almost impossible to detect this error. In Arithmetic and the theory
+of series, our whole work is based on that of Georg Cantor. In Geometry we have had continually before us the writings of v. Staudt, Pasch, Peano, Pieri and Veblen.
+
+We have derived assistance at various stages from the criticisms of friends, notably Mr.~G.~Berry of the Bodleian Library and Mr.~R.~G.~Hawtrey.
+
+We have to thank the Council of the Royal Society for a grant towards the expenses of printing of \pounds 200 from the Government Publication Fund, and also the Syndics of the
+University Press who have liberally undertaken the greater portion of the expense incurred in the production of this work. The technical excellence, in all departments, of the
+University Press, and the zeal and courtesy of its officials, have materially lightened the task of proof-correction.
+
+The second volume is already in the press, and both it and the third will appear as soon as the printing can be completed.
+
+\hfill A.~N.~W.
+
+\hfill B.~R.
+
+\textsc{Cambridge}\\
+\hspace*{2em}November, 1910
+
+
+%\section{Introduction to the second Edition\protect\footnote{In this introduction, as well as in the Appendices, the authors are under great obligations to Mr.~F.~P.~Ramsey
+%of King's College, Cambridge, who has read the whole in MS. and contributed valuable criticisms and suggestions}}
+%
+%\textsc{In} preparing this new edition of \textit{Principia Mathematica}, the authors have thought it best to leave the text unchanged, except as regards misprints
+%and minor errors
+
+\section{Introduction.}
+
+\textsc{The} mathematical logic which occupies Part I of the present work has been constructed under the guidance of three different purposes. In the first place, it aims at effecting the greatest
+possible analysis of the ideas with which it deals and of the processes by which it conducts demonstrations, and at diminishing to the utmost the number of the undefined ideas and undemonstrated
+propositions (called respectively \textit{primitive} ideas and \textit{primitive} proposisitons) from which it starts. In the ssecond place, it is framed wth a view to the perfectly precise
+expression, and to secure it in the simplest and most convenient notation possible, is the chief motive in the choice of topics. In the third place, the system is specially framed to solved the 
+paradoxes which, in recent years, have troubled students of symbolic logic and the theory of aggregates; it is believed that the theory of types, as set forth in what follows, leads both to
+avoidance of contradictions, and to the detection of the precise fallacy which has given rise to them.
+
+Of the above three purposes, the first and third often compel us to adopt methods, definitions and notations which are more complicated or more difficult than they would be if we had the second
+object alone in view. This applies especially to the theory of descriptive expressions (\pmstar 14 and \pmstar 30) and to the theory of classes and relations (\pmstar 20 and \pmstar 21). On these two points, and to a lesser degree on others, it has been found necessary to make some sacrifice of lucidity to correctness. The sacrifice is, however, in the main only temporary: in each case, the notation ultimately adopted, though its real meaning is very complicated, has an apparently simple meaning which, except at certain crucial points, can without danger be substituted in thought for the real meaning. It is therefore convenient, in a preliminary explanation of the notation, to treat these apparently simple meanings as primitive ideas, \textit{i.\,e.} as ideas introduced without definition. When the notation has grown more or less familiar, it is easier to follow the more complicated explanations which we believe to be more correct. In the body of the work, where it is necessary to adhere rigidly to the strict logical order the easier order of development could not be adopted; it is therefore given in the Introduction. The explanations given in Chapter I of the Introduction are such as place lucidity before correctness; the full explanations are partly supplied in succeeding Chapters of the Introduction, partly given in the body of the work.
+
+\end{document}
